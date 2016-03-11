@@ -1,6 +1,10 @@
 package com.example.android.sunshine.app;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -53,14 +57,35 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
+
+        if (id == R.id.action_view_location) {
+            showLocationOnMap();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
+    private void showLocationOnMap() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String location = prefs.getString(getString(R.string.prefs_key_location),
+                getString(R.string.prefs_default_location));
+
+        Uri geoLocation = Uri.parse("geo:0,0?").buildUpon()
+                .appendQueryParameter("q", location)
+                .build();
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(geoLocation);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+        else {
+            Log.d("MainActivity", "Couldn't call " + location + ", no receiving apps available");
+        }
+    }
 
 }
