@@ -138,6 +138,8 @@ public class WeatherContract {
             return CONTENT_URI.buildUpon().appendPath(locationSetting).build();
         }
 
+
+        // This method takes a date for which a list of weather should start as a query param
         public static Uri buildWeatherLocationWithStartDate(
                 String locationSetting, long startDate) {
             long normalizedDate = normalizeDate(startDate);
@@ -145,6 +147,7 @@ public class WeatherContract {
                     .appendQueryParameter(COLUMN_DATE, Long.toString(normalizedDate)).build();
         }
 
+        // This method takes a date as part of the path which returns a single entry
         public static Uri buildWeatherLocationWithDate(String locationSetting, long date) {
             return CONTENT_URI.buildUpon().appendPath(locationSetting)
                     .appendPath(Long.toString(normalizeDate(date))).build();

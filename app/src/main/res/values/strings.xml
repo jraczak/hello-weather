@@ -29,4 +29,11 @@
         <item>metric</item>
     </string-array>
 
+    <!-- Value for SharedPrefs metric option -->
+    <string name="pref_units_metric">metric</string>
+    <!-- Value for SharedPrefs imperial option -->
+    <string name="pref_units_imperial">imperial</string>
+
+
+
 </resources>
