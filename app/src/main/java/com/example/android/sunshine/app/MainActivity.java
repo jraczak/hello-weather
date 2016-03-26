@@ -69,9 +69,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void showLocationOnMap() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String location = prefs.getString(getString(R.string.prefs_key_location),
-                getString(R.string.prefs_default_location));
+        String location = Utility.getPreferredLocation(this);
 
         Uri geoLocation = Uri.parse("geo:0,0?").buildUpon()
                 .appendQueryParameter("q", location)
